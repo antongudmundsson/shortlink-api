@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="ShortLink.Api/ShortLink.Api.csproj" />
+  <Project Path="ShortLink.Tests/ShortLink.Tests.csproj" />
 </Solution>

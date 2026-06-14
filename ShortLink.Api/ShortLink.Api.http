@@ -1,6 +1,6 @@
-@ShortLink.Api_HostAddress = http://localhost:5253
+POST http://localhost:5253/api/links
+Content-Type: application/json
 
-GET {{ShortLink.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
+{
+  "url": "https://google.com"
+}
