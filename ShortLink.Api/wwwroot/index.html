@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShortLink</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px 20px;
+            cursor: pointer;
+        }
+
+       .success {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #4caf50;
+    border-radius: 8px;
+}
+
+        .error {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #f44336;
+    border-radius: 8px;
+}
+    </style>
+</head>
+<body>
+
+    <h1>ShortLink URL Shortener</h1>
+
+    <input
+        id="urlInput"
+        type="text"
+        placeholder="https://example.com" />
+
+    <button onclick="createShortLink()">
+        Create Short Link
+    </button>
+
+    <div id="result"></div>
+
+    <script>
+        async function createShortLink() {
+
+            const url = document.getElementById("urlInput").value;
+
+            const result = document.getElementById("result");
+
+            result.innerHTML = "";
+
+            try {
+
+                const response = await fetch("/api/links", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        url: url
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+
+                    result.innerHTML =
+                        `<div class="error">${data.error}</div>`;
+
+                    return;
+                }
+
+                result.innerHTML =
+    `
+    <div class="success">
+
+        <p>
+            <strong>Original URL:</strong><br>
+            ${data.originalUrl}
+        </p>
+
+        <p>
+            <strong>Short Code:</strong><br>
+            ${data.shortCode}
+        </p>
+
+        <p>
+            <strong>Short URL:</strong><br>
+            <a href="${data.shortUrl}" target="_blank">
+                ${data.shortUrl}
+            </a>
+        </p>
+
+    </div>
+    `;
+            }
+            catch {
+
+                result.innerHTML =
+                    `<div class="error">Something went wrong.</div>`;
+            }
+        }
+    </script>
+
+</body>
+</html>
