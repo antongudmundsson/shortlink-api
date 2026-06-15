@@ -8,6 +8,7 @@ public static class ShortLinkEndpoints
 {
     public static void MapShortLinkEndpoints(this WebApplication app)
     {
+        // Endpoint för att skapa en ny kortlänk.
         app.MapPost("/api/links", (
             CreateShortLinkRequest request,
             HttpContext httpContext,
@@ -36,6 +37,7 @@ public static class ShortLinkEndpoints
             }
         });
 
+        // Endpoint som omdirigerar användaren till den ursprungliga URL:en.
         app.MapGet("/{shortCode}", (
             string shortCode,
             IShortLinkService shortLinkService) =>

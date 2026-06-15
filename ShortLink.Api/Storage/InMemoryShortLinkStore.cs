@@ -5,6 +5,7 @@ namespace ShortLink.Api.Storage;
 
 public sealed class InMemoryShortLinkStore : IShortLinkStore
 {
+    // ConcurrentDictionary används för att uppfylla kravet på trådsäker lagring i minnet.
     private readonly ConcurrentDictionary<string, UrlMapping> _links = new();
 
     public bool TryAdd(UrlMapping mapping)

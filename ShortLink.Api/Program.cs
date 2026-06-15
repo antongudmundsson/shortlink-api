@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 
+// Registrerar applikationens tjänster i Dependency Injection-containerna.
 builder.Services.AddSingleton<IShortLinkStore, InMemoryShortLinkStore>();
 builder.Services.AddSingleton<IShortCodeGenerator, ShortCodeGenerator>();
 builder.Services.AddSingleton<IShortLinkService, ShortLinkService>();
